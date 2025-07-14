@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenyan University Registration System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .university-bg {
+            background-image: url('https://placehold.co/1600x900?text=Kenyan+University');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .document-preview {
+            transition: all 0.3s ease;
+        }
+        
+        .document-preview:hover {
+            transform: scale(1.03);
+        }
+        
+        /* Tabs styling */
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+            
+            .mobile-stack > * {
+                width: 100% !important;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Main Navigation -->
+    <nav class="bg-blue-800 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-graduation-cap text-2xl"></i>
+                <span class="text-xl font-bold">Kenya UniReg</span>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#student" class="hover:text-blue-200 transition">Students</a>
+                <a href="#admin" class="hover:text-blue-200 transition">Administrators</a>
+                <a href="#about" class="hover:text-blue-200 transition">About</a>
+            </div>
+            <button class="md:hidden text-2xl" id="mobileMenuButton">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-blue-900" id="mobileMenu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#student" class="py-2 hover:text-blue-200 transition">Students</a>
+                <a href="#admin" class="py-2 hover:text-blue-200 transition">Administrators</a>
+                <a href="#about" class="py-2 hover:text-blue-200 transition">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="university-bg text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">University Registration System</h1>
+            <p class="text-xl md:text-2xl mb-8">Streamlined admissions with virtual interviews for Kenyan universities</p>
+            <div class="flex justify-center space-x-4 mobile-stack">
+                <a href="#student-form" class="bg-white text-blue-800 px-6 py-3 rounded-lg font-semibold hover:bg-blue-100 transition shadow-lg">
+                    Student Registration
+                </a>
+                <a href="#admin-login" class="bg-transparent border-2 border-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-800 transition shadow-lg">
+                    Admin Login
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12">
+        <!-- Student Section -->
+        <section id="student" class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center text-blue-800">Student Portal</h2>
+            
+            <!-- Student Registration Form -->
+            <div id="student-form" class="bg-white rounded-xl shadow-lg p-6 mb-12 max-w-3xl mx-auto">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-800">New Student Registration</h3>
+                
+                <form id="registrationForm" class="space-y-6">
+                    <!-- Personal Info -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 text-gray-700 border-b pb-2">Personal Information</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First Name*</label>
+                                <input type="text" id="firstName" name="firstName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name*</label>
+                                <input type="text" id="lastName" name="lastName" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="idNumber" class="block text-sm font-medium text-gray-700 mb-1">National ID/Passport*</label>
+                                <input type="text" id="idNumber" name="idNumber" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth*</label>
+                                <input type="date" id="dob" name="dob" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address*</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number*</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Academic Info -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 text-gray-700 border-b pb-2">Academic Information</h4>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="university" class="block text-sm font-medium text-gray-700 mb-1">Select University*</label>
+                                <select id="university" name="university" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="UoN">University of Nairobi</option>
+                                    <option value="KU">Kenyatta University</option>
+                                    <option value="JKUAT">Jomo Kenyatta University</option>
+                                    <option value="MMUST">Masinde Muliro University</option>
+                                    <option value="Moi">Moi University</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="program" class="block text-sm font-medium text-gray-700 mb-1">Select Program*</label>
+                                <select id="program" name="program" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="CS">Computer Science</option>
+                                    <option value="ENG">Engineering</option>
+                                    <option value="MED">Medicine</option>
+                                    <option value="BUS">Business Administration</option>
+                                    <option value="LAW">Law</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="kcseIndex" class="block text-sm font-medium text-gray-700 mb-1">KCSE Index Number*</label>
+                                <input type="text" id="kcseIndex" name="kcseIndex" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                            </div>
+                            <div>
+                                <label for="kcseYear" class="block text-sm font-medium text-gray-700 mb-1">KCSE Year*</label>
+                                <select id="kcseYear" name="kcseYear" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                                    <option value="">-- Select --</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2022">2022</option>
+                                    <option value="2021">2021</option>
+                                    <option value="2020">2020</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Upload -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-4 text-gray-700 border-b pb-2">Required Documents</h4>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">National ID/Passport*</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="cursor-pointer">
+                                        <span class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Choose File</span>
+                                        <input type="file" class="hidden" accept=".pdf,.jpg,.png" id="idFile" required>
+                                    </label>
+                                    <span id="idFileName" class="text-sm text-gray-500">No file chosen</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">KCSE Certificate/Result Slip*</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="cursor-pointer">
+                                        <span class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Choose File</span>
+                                        <input type="file" class="hidden" accept=".pdf,.jpg,.png" id="kcseFile" required>
+                                    </label>
+                                    <span id="kcseFileName" class="text-sm text-gray-500">No file chosen</span>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Other Supporting Documents (Optional)</label>
+                                <div class="flex items-center space-x-4">
+                                    <label class="cursor-pointer">
+                                        <span class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition">Choose File</span>
+                                        <input type="file" class="hidden" accept=".pdf,.jpg,.png" id="otherFile">
+                                    </label>
+                                    <span id="otherFileName" class="text-sm text-gray-500">No file chosen</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-6 bg-blue-50 p-4 rounded-lg">
+                            <h5 class="font-medium text-blue-800 mb-2">Upload Guidelines:</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                <li>Maximum file size: 2MB per document</li>
+                                <li>Accepted formats: PDF, JPG, PNG</li>
+                                <li>Clear, legible scans/photos only</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Terms and Submit -->
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" name="terms" class="mt-1 mr-2" required>
+                        <label for="terms" class="text-sm text-gray-700">
+                            I certify that all information provided is accurate and complete. I agree to the 
+                            <a href="#" class="text-blue-600 hover:underline">Terms of Service</a> and 
+                            <a href="#" class="text-blue-600 hover:underline">Privacy Policy</a>.
+                        </label>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Submit Application
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Mock Student Dashboard (shown after registration) -->
+            <div id="studentDashboard" class="bg-white rounded-xl shadow-lg p-6 mb-12 max-w-3xl mx-auto hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-semibold text-gray-800">Application Dashboard</h3>
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                        Submitted
+                    </span>
+                </div>
+                
+                <div class="space-y-8">
+                    <!-- Application Status -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-3 text-gray-700">Application Status</h4>
+                        <div class="relative pt-6">
+                            <div class="absolute top-0 left-0 right-0 flex items-center">
+                                <div class="flex-1 border-t-2 border-green-500"></div>
+                                <div class="mx-3 flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center text-white">1</div>
+                                    <span class="mt-1 text-xs font-medium">Submitted</span>
+                                </div>
+                                <div class="flex-1 border-t-2 border-gray-300"></div>
+                                <div class="mx-3 flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">2</div>
+                                    <span class="mt-1 text-xs font-medium">Under Review</span>
+                                </div>
+                                <div class="flex-1 border-t-2 border-gray-300"></div>
+                                <div class="mx-3 flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">3</div>
+                                    <span class="mt-1 text-xs font-medium">Interview</span>
+                                </div>
+                                <div class="flex-1 border-t-2 border-gray-300"></div>
+                                <div class="mx-3 flex flex-col items-center">
+                                    <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600">4</div>
+                                    <span class="mt-1 text-xs font-medium">Decision</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Documents -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-3 text-gray-700">Submitted Documents</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="document-preview bg-gray-50 rounded-lg p-4 border border-gray-200">
+                                <div class="flex items-start">
+                                    <i class="fas fa-file-pdf text-3xl text-red-500 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">National ID Copy</h5>
+                                        <p class="text-sm text-gray-600">Uploaded: Today</p>
+                                        <p class="text-xs text-green-600">Verified</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="document-preview bg-gray-50 rounded-lg p-4 border border-gray-200">
+                                <div class="flex items-start">
+                                    <i class="fas fa-file-image text-3xl text-blue-500 mr-3"></i>
+                                    <div>
+                                        <h5 class="font-medium">KCSE Certificate</h5>
+                                        <p class="text-sm text-gray-600">Uploaded: Today</p>
+                                        <p class="text-xs text-yellow-600">Pending Review</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Interview Info (hidden until scheduled) -->
+                    <div id="interviewInfo" class="hidden">
+                        <h4 class="text-lg font-medium mb-3 text-gray-700">Interview Scheduled</h4>
+                        <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                                <div class="mb-4 md:mb-0">
+                                    <h5 class="font-medium text-blue-800">Computer Science Program Interview</h5>
+                                    <p class="text-sm text-gray-700">
+                                        <i class="far fa-calendar-alt mr-1"></i>
+                                        <span id="interviewDate">Wednesday, 15th June 2023</span>
+                                    </p>
+                                    <p class="text-sm text-gray-700">
+                                        <i class="far fa-clock mr-1"></i>
+                                        <span id="interviewTime">10:00 AM - 10:30 AM</span>
+                                    </p>
+                                </div>
+                                <div>
+                                    <a href="#" id="zoomLink" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition inline-block text-center">
+                                        <i class="fas fa-video mr-2"></i> Join Zoom Interview
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                            <h5 class="font-medium text-yellow-800 mb-2">Interview Preparation Tips:</h5>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                <li>Test your internet connection beforehand</li>
+                                <li>Ensure proper lighting and quiet environment</li>
+                                <li>Have your documents ready for reference</li>
+                                <li>Join the meeting 5 minutes early</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-3 text-gray-700">Contact Information</h4>
+                        <div class="rounded-lg border border-gray-200 p-4">
+                            <p class="text-sm mb-2">
+                                <span class="font-medium mr-2">Email:</span>
+                                <span id="dashboardEmail">student@example.com</span>
+                            </p>
+                            <p class="text-sm mb-2">
+                                <span class="font-medium mr-2">Phone:</span>
+                                <span id="dashboardPhone">+254 700 000000</span>
+                            </p>
+                            <p class="text-sm">
+                                <span class="font-medium mr-2">University:</span>
+                                <span id="dashboardUniversity">University of Nairobi</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Admin Section -->
+        <section id="admin" class="mb-20">
+            <h2 class="text-3xl font-bold mb-8 text-center text-blue-800">Administrator Portal</h2>
+            
+            <!-- Admin Login Form -->
+            <div id="admin-login" class="bg-white rounded-xl shadow-lg p-6 mb-12 max-w-md mx-auto">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-800">Admin Login</h3>
+                
+                <form id="adminLoginForm" class="space-y-6">
+                    <div>
+                        <label for="adminEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address*</label>
+                        <input type="email" id="adminEmail" name="adminEmail" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                    </div>
+                    
+                    <div>
+                        <label for="adminPassword" class="block text-sm font-medium text-gray-700 mb-1">Password*</label>
+                        <input type="password" id="adminPassword" name="adminPassword" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input type="checkbox" id="rememberMe" name="rememberMe" class="mr-2">
+                        <label for="rememberMe" class="text-sm text-gray-700">Remember me</label>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" class="w-full bg-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-800 transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Login
+                        </button>
+                    </div>
+                    
+                    <div class="text-center text-sm text-gray-600">
+                        <a href="#" class="text-blue-600 hover:underline">Forgot password?</a>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Mock Admin Dashboard (shown after login) -->
+            <div id="adminDashboard" class="bg-white rounded-xl shadow-lg p-6 mb-12 max-w-6xl mx-auto hidden">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800">Admissions Dashboard</h3>
+                        <p class="text-sm text-gray-600">Welcome back, <span id="adminName">Administrator</span></p>
+                    </div>
+                    <button id="logoutButton" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition flex items-center">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                    </button>
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="grid md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-blue-800 font-medium">Total Applications</p>
+                                <p class="text-2xl font-bold text-blue-900">124</p>
+                            </div>
+                            <i class="fas fa-file-alt text-blue-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 rounded-lg p-4 border border-green-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-green-800 font-medium">Approved</p>
+                                <p class="text-2xl font-bold text-green-900">42</p>
+                            </div>
+                            <i class="fas fa-check-circle text-green-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-yellow-800 font-medium">Pending Review</p>
+                                <p class="text-2xl font-bold text-yellow-900">68</p>
+                            </div>
+                            <i class="fas fa-hourglass-half text-yellow-400 text-2xl"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-purple-800 font-medium">Interview Scheduled</p>
+                                <p class="text-2xl font-bold text-purple-900">14</p>
+                            </div>
+                            <i class="fas fa-video text-purple-400 text-2xl"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Applications Table -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    ID
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    University
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Documents
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Sample row 1 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    #1001
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">John Mwendwa</div>
+                                    <div class="text-sm text-gray-500">john.m@email.com</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    UoN
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">
+                                        Under Review
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex space-x-1">
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">ID</span>
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">KCSE</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3 view-btn">View</button>
+                                    <button class="text-green-600 hover:text-green-900 schedule-btn">Schedule</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Sample row 2 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    #1002
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Mary Otieno</div>
+                                    <div class="text-sm text-gray-500">mary.o@email.com</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    KU
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-purple-100 text-purple-800">
+                                        Interview Scheduled
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex space-x-1">
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">ID</span>
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">KCSE</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3 view-btn">View</button>
+                                    <button class="text-indigo-600 hover:text-indigo-900 approve-btn">Review</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Sample row 3 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    #1003
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">James Kariuki</div>
+                                    <div class="text-sm text-gray-500">james.k@email.com</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    JKUAT
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">
+                                        Approved
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex space-x-1">
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">ID</span>
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">KCSE</span>
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">Other</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3 view-btn">View</button>
+                                    <button class="text-red-600 hover:text-red-900 revoke-btn">Revoke</button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Sample row 4 -->
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    #1004
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">Grace Akinyi</div>
+                                    <div class="text-sm text-gray-500">grace.a@email.com</div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    Moi
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs rounded-full bg-red-100 text-red-800">
+                                        Rejected
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <div class="flex space-x-1">
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">ID</span>
+                                        <span class="px-2 py-1 text-xs rounded bg-blue-100 text-blue-800">KCSE</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3 view-btn">View</button>
+                                    <button class="text-green-600 hover:text-green-900 reconsider-btn">Reconsider</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-6 flex justify-between items-center">
+                    <div class="text-sm text-gray-500">
+                        Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">124</span> entries
+                    </div>
+                    <div class="flex space-x-2">
+                        <button class="px-4 py-2 border rounded-lg text-sm bg-gray-100 text-gray-600 cursor-not-allowed" disabled>
+                            Previous
+                        </button>
+                        <button class="px-4 py-2 border rounded-lg text-sm bg-blue-600 text-white">
+                            1
+                        </button>
+                        <button class="px-4 py-2 border rounded-lg text-sm hover:bg-gray-100">
+                            2
+                        </button>
+                        <button class="px-4 py-2 border rounded-lg text-sm hover:bg-gray-100">
+                            3
+                        </button>
+                        <button class="px-4 py-2 border rounded-lg text-sm hover:bg-gray-100">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Schedule Interview Modal -->
+            <div id="scheduleModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-md">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Schedule Interview</h3>
+                        <button id="closeScheduleModal" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <form id="scheduleForm" class="space-y-4">
+                        <input type="hidden" id="applicantId">
+                        
+                        <div>
+                            <label for="interviewDateInput" class="block text-sm font-medium text-gray-700 mb-1">Date*</label>
+                            <input type="date" id="interviewDateInput" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                        </div>
+                        
+                        <div>
+                            <label for="interviewTimeInput" class="block text-sm font-medium text-gray-700 mb-1">Time*</label>
+                            <input type="time" id="interviewTimeInput" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                        </div>
+                        
+                        <div>
+                            <label for="interviewDuration" class="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)*</label>
+                            <select id="interviewDuration" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" required>
+                                <option value="15">15 minutes</option>
+                                <option value="30" selected>30 minutes</option>
+                                <option value="45">45 minutes</option>
+                                <option value="60">60 minutes</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="interviewNotes" class="block text-sm font-medium text-gray-700 mb-1">Notes (Optional)</label>
+                            <textarea id="interviewNotes" rows="3" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"></textarea>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-3 pt-4">
+                            <button type="button" id="cancelSchedule" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+                                Cancel
+                            </button>
+                            <button type="submit" class="bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition">
+                                Schedule Interview
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- View Application Modal -->
+            <div id="viewModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+                <div class="bg-white rounded-lg shadow-xl p-6 w-full max-w-2xl max-h-[80vh] overflow-y-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Application Details</h3>
+                        <button id="closeViewModal" class="text-gray-500 hover:text-gray-700">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <!-- Personal Info -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Personal Information</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Full Name</p>
+                                    <p class="font-medium" id="viewName">John Mwendwa</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">National ID/Passport</p>
+                                    <p class="font-medium" id="viewId">12345678</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Date of Birth</p>
+                                    <p class="font-medium" id="viewDob">15/06/1999</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Email</p>
+                                    <p class="font-medium" id="viewEmail">john.m@email.com</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Phone</p>
+                                    <p class="font-medium" id="viewPhone">+254 700 000000</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">KCSE Index</p>
+                                    <p class="font-medium" id="viewKcseIndex">12345678901</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Academic Info -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Academic Information</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">University</p>
+                                    <p class="font-medium" id="viewUniversity">University of Nairobi</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">Program</p>
+                                    <p class="font-medium" id="viewProgram">Computer Science</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-500 mb-1">KCSE Year</p>
+                                    <p class="font-medium" id="viewKcseYear">2018</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Documents -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Submitted Documents</h4>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="document-preview bg-gray-50 rounded-lg p-4 border border-gray-200 flex flex-col">
+                                    <div class="flex items-start mb-3">
+                                        <i class="fas fa-file-pdf text-3xl text-red-500 mr-3"></i>
+                                        <div>
+                                            <h5 class="font-medium">National ID Copy</h5>
+                                            <p class="text-sm text-gray-600">Verified</p>
+                                        </div>
+                                    </div>
+                                    <button class="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm w-full">
+                                        <i class="fas fa-eye mr-2"></i> View Document
+                                    </button>
+                                </div>
+                                
+                                <div class="document-preview bg-gray-50 rounded-lg p-4 border border-gray-200 flex flex-col">
+                                    <div class="flex items-start mb-3">
+                                        <i class="fas fa-file-image text-3xl text-blue-500 mr-3"></i>
+                                        <div>
+                                            <h5 class="font-medium">KCSE Certificate</h5>
+                                            <p class="text-sm text-gray-600">Pending Review</p>
+                                        </div>
+                                    </div>
+                                    <button class="mt-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm w-full">
+                                        <i class="fas fa-eye mr-2"></i> View Document
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Status Update -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Application Status</h4>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <span class="px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800" id="viewStatus">
+                                        Under Review
+                                    </span>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition text-sm">
+                                        Approve
+                                    </button>
+                                    <button class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition text-sm">
+                                        Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Admin Notes -->
+                        <div>
+                            <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Admin Notes</h4>
+                            <textarea rows="3" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" id="adminNotes"></textarea>
+                            <div class="mt-2 flex justify-end">
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition text-sm">
+                                    Save Notes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex justify-end">
+                        <button id="closeViewModalBtn" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300 transition">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Kenya UniReg</h4>
+                    <p class="text-sm text-gray-400">
+                        A streamlined university registration system with virtual interview capabilities for Kenyan universities.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">Home</a></li>
+                        <li><a href="#student" class="hover:text-white transition">Student Portal</a></li>
+                        <li><a href="#admin" class="hover:text-white transition">Admin Portal</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition">FAQs</a></li>
+                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition">System Requirements</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li class="flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            Nairobi, Kenya
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-2"></i>
+                            +254 700 000000
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-envelope mr-2"></i>
+                            support@kenyaunireg.ac.ke
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400 mb-4 md:mb-0">
+                    &copy; 2023 Kenya University Registration System. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // File upload name display
+        document.getElementById('idFile').addEventListener('change', function(e) {
+            document.getElementById('idFileName').textContent = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        });
+        
+        document.getElementById('kcseFile').addEventListener('change', function(e) {
+            document.getElementById('kcseFileName').textContent = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        });
+        
+        document.getElementById('otherFile').addEventListener('change', function(e) {
+            document.getElementById('otherFileName').textContent = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+        });
+        
+        // Registration form submission
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Mock form submission - in a real app, this would be an AJAX call
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const university = document.getElementById('university').options[document.getElementById('university').selectedIndex].text;
+            
+            // Set dashboard values
+            document.getElementById('dashboardEmail').textContent = email;
+            document.getElementById('dashboardPhone').textContent = phone;
+            document.getElementById('dashboardUniversity').textContent = university;
+            
+            // Hide form, show dashboard
+            document.getElementById('student-form').classList.add('hidden');
+            document.getElementById('studentDashboard').classList.remove('hidden');
+            
+            // Scroll to dashboard
+            document.getElementById('studentDashboard').scrollIntoView({ behavior: 'smooth' });
+            
+            // Mock success message
+            alert(`Thank you ${firstName} ${lastName}! Your application has been submitted successfully.`);
+        });
+        
+        // Admin login form submission
+        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Mock admin login - in a real app, this would verify credentials
+            const email = document.getElementById('adminEmail').value;
+            const username = email.split('@')[0];
+            
+            // Set admin name
+            document.getElementById('adminName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
+            
+            // Hide login, show dashboard
+            document.getElementById('admin-login').classList.add('hidden');
+            document.getElementById('adminDashboard').classList.remove('hidden');
+            
+            // Scroll to dashboard
+            document.getElementById('adminDashboard').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Logout button
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            // Hide dashboard, show login
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('admin-login').classList.remove('hidden');
+            
+            // Scroll to login
+            document.getElementById('admin-login').scrollIntoView({ behavior: 'smooth' });
+            
+            // Clear form
+            document.getElementById('adminLoginForm').reset();
+        });
+        
+        // Modal handlers
+        const modalToggles = {
+            'scheduleModal': {
+                'openBtns': document.querySelectorAll('.schedule-btn'),
+                'closeBtn': document.getElementById('closeScheduleModal'),
+                'cancelBtn': document.getElementById('cancelSchedule')
+            },
+            'viewModal': {
+                'openBtns': document.querySelectorAll('.view-btn'),
+                'closeBtn': document.getElementById('closeViewModal'),
+                'cancelBtn': document.getElementById('closeViewModalBtn')
+            }
+        };
+        
+        // Generic modal handler
+        function setupModalHandlers(modalId, handlers) {
+            // Open modal
+            handlers.openBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById(modalId).classList.remove('hidden');
+                    
+                    // Mock data for view modal
+                    if (modalId === 'viewModal') {
+                        const row = this.closest('tr');
+                        document.getElementById('viewName').textContent = row.querySelector('td:nth-child(2) div:first-child').textContent;
+                        document.getElementById('viewEmail').textContent = row.querySelector('td:nth-child(2) div:last-child').textContent;
+                        document.getElementById('viewUniversity').textContent = row.querySelector('td:nth-child(3)').textContent;
+                        
+                        const status = row.querySelector('td:nth-child(4) span').textContent.trim();
+                        document.getElementById('viewStatus').textContent = status;
+                        
+                        // Update status color
+                        const statusElement = document.getElementById('viewStatus');
+                        statusElement.className = 'px-3 py-1 rounded-full text-sm font-medium';
+                        
+                        if (status === 'Under Review') {
+                            statusElement.classList.add('bg-yellow-100', 'text-yellow-800');
+                        } else if (status === 'Interview Scheduled') {
+                            statusElement.classList.add('bg-purple-100', 'text-purple-800');
+                        } else if (status === 'Approved') {
+                            statusElement.classList.add('bg-green-100', 'text-green-800');
+                        } else if (status === 'Rejected') {
+                            statusElement.classList.add('bg-red-100', 'text-red-800');
+                        }
+                    }
+                });
+            });
+            
+            // Close modal
+            handlers.closeBtn.addEventListener('click', function() {
+                document.getElementById(modalId).classList.add('hidden');
+            });
+            
+            // Cancel button
+            if (handlers.cancelBtn) {
+                handlers.cancelBtn.addEventListener('click', function() {
+                    document.getElementById(modalId).classList.add('hidden');
+                });
+            }
+        }
+        
+        // Setup all modals
+        Object.keys(modalToggles).forEach(modalId => {
+            setupModalHandlers(modalId, modalToggles[modalId]);
+        });
+        
+        // Schedule form submission
+        document.getElementById('scheduleForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const dateInput = document.getElementById('interviewDateInput').value;
+            const timeInput = document.getElementById('interviewTimeInput').value;
+            
+            // Format date
+            const dateObj = new Date(dateInput);
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            const formattedDate = dateObj.toLocaleDateString('en-GB', options);
+            
+            // Format time
+            const [hours, minutes] = timeInput.split(':');
+            const formattedTime = `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
+            
+            // Update student dashboard
+            document.getElementById('interviewDate').textContent = formattedDate;
+            document.getElementById('interviewTime').textContent = formattedTime;
+            document.getElementById('zoomLink').href = `https://zoom.us/j/99912345678?pwd=MockPassword123`;
+            
+            // Show interview info
+            document.getElementById('interviewInfo').classList.remove('hidden');
+            
+            // Close modal
+            document.getElementById('scheduleModal').classList.add('hidden');
+            
+            // Mock alert
+            alert('Interview scheduled successfully!');
+        });
+        
+        // Simulate scheduling an interview after 5 seconds (demo only)
+        setTimeout(() => {
+            // Only trigger if the student dashboard is visible
+            if (!document.getElementById('studentDashboard').classList.contains('hidden')) {
+                document.getElementById('interviewInfo').classList.remove('hidden');
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
