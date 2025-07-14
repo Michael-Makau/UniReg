@@ -9,7 +9,7 @@
     <style>
         /* Custom styles */
         .university-bg {
-            background-image: url('https://placehold.co/1600x900?text=Kenyan+University');
+            background-image: url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cc6d79a0-cb2e-4e1d-a0dc-210f4b364855.png');
             background-size: cover;
             background-position: center;
         }
@@ -901,52 +901,104 @@
             document.getElementById('otherFileName').textContent = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
         });
         
-        // Registration form submission
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        // Registration form submission with actual API call
+        document.getElementById('registrationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Mock form submission - in a real app, this would be an AJAX call
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const university = document.getElementById('university').options[document.getElementById('university').selectedIndex].text;
+            const formData = new FormData(this);
             
-            // Set dashboard values
-            document.getElementById('dashboardEmail').textContent = email;
-            document.getElementById('dashboardPhone').textContent = phone;
-            document.getElementById('dashboardUniversity').textContent = university;
-            
-            // Hide form, show dashboard
-            document.getElementById('student-form').classList.add('hidden');
-            document.getElementById('studentDashboard').classList.remove('hidden');
-            
-            // Scroll to dashboard
-            document.getElementById('studentDashboard').scrollIntoView({ behavior: 'smooth' });
-            
-            // Mock success message
-            alert(`Thank you ${firstName} ${lastName}! Your application has been submitted successfully.`);
+            try {
+                const response = await fetch('/api/applications', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (!response.ok) throw new Error('Registration failed');
+                
+                const data = await response.json();
+                
+                // Set dashboard values from response
+                document.getElementById('dashboardEmail').textContent = data.email;
+                document.getElementById('dashboardPhone').textContent = data.phone;
+                document.getElementById('dashboardUniversity').textContent = data.university;
+                
+                // Hide form, show dashboard
+                document.getElementById('student-form').classList.add('hidden');
+                document.getElementById('studentDashboard').classList.remove('hidden');
+                
+                // Scroll to dashboard
+                document.getElementById('studentDashboard').scrollIntoView({ behavior: 'smooth' });
+                
+                alert(`Thank you ${data.firstName} ${data.lastName}! Your application has been submitted successfully.`);
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Registration failed. Please try again.');
+            }
         });
         
-        // Admin login form submission
-        document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+        // Admin login form submission with actual API call
+        document.getElementById('adminLoginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Mock admin login - in a real app, this would verify credentials
-            const email = document.getElementById('adminEmail').value;
-            const username = email.split('@')[0];
+            const credentials = {
+                email: document.getElementById('adminEmail').value,
+                password: document.getElementById('adminPassword').value
+            };
             
-            // Set admin name
-            document.getElementById('adminName').textContent = username.charAt(0).toUpperCase() + username.slice(1);
-            
-            // Hide login, show dashboard
-            document.getElementById('admin-login').classList.add('hidden');
-            document.getElementById('adminDashboard').classList.remove('hidden');
-            
-            // Scroll to dashboard
-            document.getElementById('adminDashboard').scrollIntoView({ behavior: 'smooth' });
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(credentials)
+                });
+                
+                if (!response.ok) throw new Error('Login failed');
+                
+                const { token, user } = await response.json();
+                
+                // Store token for future requests
+                localStorage.setItem('authToken', token);
+                
+                // Set admin name
+                document.getElementById('adminName').textContent = user.name;
+                
+                // Hide login, show dashboard
+                document.getElementById('admin-login').classList.add('hidden');
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                
+                // Load applications data
+                loadApplications();
+                
+                // Scroll to dashboard
+                document.getElementById('adminDashboard').scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Login failed. Please check your credentials and try again.');
+            }
         });
         
+        // Load applications from API
+        async function loadApplications() {
+            try {
+                const response = await fetch('/api/applications', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error('Failed to load applications');
+                
+                const applications = await response.json();
+                // TODO: Update UI with real applications data
+                
+            } catch (error) {
+                console.error('Load applications error:', error);
+                alert('Failed to load applications');
+            }
+        }
+
         // Logout button
         document.getElementById('logoutButton').addEventListener('click', function() {
             // Hide dashboard, show login
